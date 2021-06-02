@@ -22,7 +22,12 @@ function messageAlert(name){
 function formatMessages(msg){
     var chat = document.getElementById("chat-messages")
     var div = document.createElement("div")
-    div.innerHTML = `<p><strong>${msg.username}</strong>: ${msg.text}</p>`
+    var sanitizeHTML = function (str) {
+	return str.replace(/[^\w. ]/gi, function (c) {
+		return '&#' + c.charCodeAt(0) + ';';
+	});
+};
+    div.innerHTML = `<p><strong>${sanitizeHTML(msg.username)}</strong>: ${sanitizeHTML(msg.text)}</p>`
     chat.appendChild(div)
     //MOSTRA A MENSAGEM NA TELA DENTRO DA DIV DE MENSAGENS 
     chatMessages.scrollTop = chatMessages.scrollHeight
